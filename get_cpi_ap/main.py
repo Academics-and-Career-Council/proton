@@ -119,7 +119,7 @@ def get_cpi_ap(file):
                         if flag == 1:
                             if len(val) >= 5 and len(val) <= 8:
                                 if any(chr.isdigit() for chr in val):
-                                    one_sem["courses"].append({"course": val, "credits": credits, "grade": grade, "credits_received": scored})
+                                    one_sem["courses"].append({"course": val, "credits": credits, "grade": grade, "credits_received": scored, "is_repeated": False})
                                     break
                             continue
                         if credits != 0:
@@ -141,8 +141,9 @@ def get_cpi_ap(file):
                                 case 'F':
                                     scored = 0
                                 case 'S':
-                                    total_credits = total_credits + credits
-                                    break
+                                    scored = credits
+                                case 'X':
+                                    scored = 0
                                 case default:
                                     break
                             total_credits = total_credits + credits
