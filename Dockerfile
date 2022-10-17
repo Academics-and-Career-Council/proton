@@ -11,9 +11,7 @@
 # Preparing environment
 FROM ubuntu:22.04
 RUN apt-get update 
-RUN apt install software-properties-common -y
-RUN add-apt-repository -y ppa:deadsnakes/ppa
-RUN apt install -y python3.10
+RUN apt install software-properties-common apt-utils -y
 RUN apt-get update 
 RUN apt install -y default-jre
 RUN apt install -y default-jdk
