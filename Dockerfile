@@ -20,7 +20,7 @@ RUN apt install -y default-jdk
 RUN mkdir /ocr
 WORKDIR /ocr
 COPY req.txt .
-RUN pip3 install -r req.txt
+RUN pip install -r req.txt
 COPY . /ocr
 EXPOSE 7000
 ENTRYPOINT [ "gunicorn", "server:app", "-w", "1", "-b", "0.0.0.0:7000" ]
