@@ -1,7 +1,7 @@
 import os
 
-from flask import Flask 
-from flask import request, abort, jsonify, send_from_directory
+from flask import Flask
+from flask import request
 import flask
 
 from get_cpi_ap.main import get_cpi_ap
@@ -14,17 +14,15 @@ from get_cpi_ap.main import get_cpi_ap
 app = Flask(__name__)
 
 
-	
-@app.route('/uploader', methods = ['GET', 'POST'])
+@app.route("/uploader", methods=["GET", "POST"])
 def upload_file():
-   if request.method == 'POST':
-      f = request.files['file']
-      # f.save(f.filename)
-      grade_structure = get_cpi_ap(f)
-      response = flask.jsonify(grade_structure)
-      response.headers.add('Access-Control-Allow-Origin', '*')
-      return response
-    
+    if request.method == "POST":
+        f = request.files["file"]
+        # f.save(f.filename)
+        grade_structure = get_cpi_ap(f)
+        response = flask.jsonify(grade_structure)
+        return response
+
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

@@ -1,8 +1,6 @@
 from tabula import read_pdf
-from tabulate import tabulate
 import pandas as pd
 import os
-import json
 
 #
 #   grade_structure {
@@ -23,10 +21,8 @@ import json
 def return_pandas_df(tabl, name_file):
     # print("one file")
     
-    location = "C:/Users/fahee/programming/webdev/ap_cpi_calc/get_cpi_ap"
     tabl.to_csv(name_file)
     pd_df = pd.read_csv(name_file)
-    path = os.path.join(location, name_file)
     os.remove(os.path.join(name_file))
     return pd_df
 
