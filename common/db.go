@@ -29,10 +29,12 @@ func InitDB() error {
 	}
 
 	db = client.Database("go_demo")
+	fmt.Println("jhbrfhb")
+	fmt.Println(client.Database("go_demo"))
 
 	return nil
 }
 
-func CloseDB() error {
-	return db.Client().Disconnect(context.Background())
-}
+// func CloseDB() error {
+// 	return db.Client().Disconnect(context.Background())
+// }

@@ -35,7 +35,7 @@ func run() error {
 	}
 
 	// defer closing db
-	defer common.CloseDB()
+	// defer common.CloseDB()
 
 	// create app
 	app := fiber.New()
@@ -53,7 +53,7 @@ func run() error {
 	if port = os.Getenv("PORT"); port == "" {
 		port = "8080"
 	}
-	app.Listen(":" + port)
+	app.Listen("localhost:8000")
 
 	return nil
 }

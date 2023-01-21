@@ -14,7 +14,7 @@ func AddBookGroup(app *fiber.App) {
 
 	bookGroup.Get("/", getBooks)
 	bookGroup.Get("/courses", getCourses)
-	bookGroup.Get("/coursesY22", getCoursesY22)
+	bookGroup.Get("/courses1/:category", getCoursesY22)
 	// bookGroup.Get("/getcourse/:key", getCourse)
 	bookGroup.Get("/getuser/:email", getBook)
 	bookGroup.Post("/register1", createBook)
@@ -54,6 +54,11 @@ type coursesDTO struct{
 	Course string `json:"course" bson:"course"` 
 	Calue string `json:"value" bson:"value"`
 	Cred int `json:"cred" bson:"cred"`
+	Category string `json:"category" bson:"category"`
+	Grade  string `json:"grade" bson:"grade"`
+	Credits_received  int `json:"credits_received" bson:"credits_received"` 
+	Is_repeated   bool `json:"is_repeated" bson:"is_repeated"`
+	Is_sx  bool `json:"is_sx" bson:"is_sx"`
 }
 func getCourses(c *fiber.Ctx) error {
 	coll := common.GetDBCollection("courses")
@@ -92,12 +97,19 @@ type coursesY22DTO struct{
 	Is_sx  bool `json:"is_sx" bson:"is_sx"`
 }
 func getCoursesY22(c *fiber.Ctx) error {
-	coll := common.GetDBCollection("coursesY22")
+	coll := common.GetDBCollection("courses")
 
+	category := c.Params("category")
+	if category == "" {
+		return c.Status(400).JSON(fiber.Map{
+			"error": "category is required",
+			"category": c.Params("category"),
+		})
+	}
 	// find all books
 	
 	books := make([]models.CoursesY22, 0)
-	cursor, err := coll.Find(c.Context(), bson.M{})
+	cursor, err := coll.Find(c.Context(), bson.M{"Category":category})
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{
 			"error": err.Error(),
