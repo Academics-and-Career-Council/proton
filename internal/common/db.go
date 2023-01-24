@@ -27,9 +27,7 @@ func InitDB() error {
 		fmt.Println("Successfully connected to Mongodb Instance")
 	}
 
-	db = client.Database("go_demo")
-	fmt.Println("jhbrfhb")
-	fmt.Println(client.Database("go_demo"))
+	db = client.Database(os.Getenv("DATABASE_NAME"))
 
 	return nil
 }
