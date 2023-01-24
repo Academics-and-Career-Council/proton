@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"proton/internal/services"
+
 	"github.com/spf13/cobra"
 )
 
@@ -13,7 +14,7 @@ var serveCmd = &cobra.Command{
 	Use:   "serve",
 	Short: "Starts the Fiber Server",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		err := services.Run();
-		return err;
+		err := services.Run()
+		return err
 	},
 }

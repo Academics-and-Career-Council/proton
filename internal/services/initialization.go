@@ -1,10 +1,11 @@
-package services;
+package services
 
 import (
 	"os"
 
 	"proton/internal/common"
 	"proton/internal/router"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -41,7 +42,7 @@ func Run() error {
 	router.AddcourseGroup(app)
 
 	// start server
-	port := os.Getenv("PORT");
+	port := os.Getenv("PORT")
 	err = app.Listen(":" + port)
 
 	return err

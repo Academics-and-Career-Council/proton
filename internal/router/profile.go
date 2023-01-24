@@ -3,6 +3,7 @@ package router
 import (
 	"proton/internal/common"
 	"proton/internal/models"
+
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson"
 	// "go.mongodb.org/mongo-driver/bson/primitive"
@@ -23,18 +24,18 @@ func AddcourseGroup(app *fiber.App) {
 	// courseGroup.Delete("/:id", deleteBook)
 }
 
-
-type coursesDTO struct{
-	Key  int `json:"key" bson:"key"`
-	Course string `json:"course" bson:"course"` 
-	Calue string `json:"value" bson:"value"`
-	Cred int `json:"cred" bson:"cred"`
-	Category string `json:"category" bson:"category"`
-	Grade  string `json:"grade" bson:"grade"`
-	Credits_received  int `json:"credits_received" bson:"credits_received"` 
-	Is_repeated   bool `json:"is_repeated" bson:"is_repeated"`
-	Is_sx  bool `json:"is_sx" bson:"is_sx"`
+type coursesDTO struct {
+	Key              int    `json:"key" bson:"key"`
+	Course           string `json:"course" bson:"course"`
+	Calue            string `json:"value" bson:"value"`
+	Cred             int    `json:"cred" bson:"cred"`
+	Category         string `json:"category" bson:"category"`
+	Grade            string `json:"grade" bson:"grade"`
+	Credits_received int    `json:"credits_received" bson:"credits_received"`
+	Is_repeated      bool   `json:"is_repeated" bson:"is_repeated"`
+	Is_sx            bool   `json:"is_sx" bson:"is_sx"`
 }
+
 func getCourses(c *fiber.Ctx) error {
 	coll := common.GetDBCollection("courses")
 
@@ -61,30 +62,32 @@ func getCourses(c *fiber.Ctx) error {
 
 	return c.Status(200).JSON(fiber.Map{"data": books})
 }
-type coursesY22DTO struct{
-	Key  int `json:"key" bson:"key"`
-	Course  string `json:"course" bson:"course"` 
-	Credits  int `json:"credits" bson:"credits"`
-    Category string `json:"category" bson:"category"`
-	Grade  string `json:"grade" bson:"grade"`
-	Credits_received  int `json:"credits_received" bson:"credits_received"` 
-	Is_repeated   bool `json:"is_repeated" bson:"is_repeated"`
-	Is_sx  bool `json:"is_sx" bson:"is_sx"`
+
+type coursesY22DTO struct {
+	Key              int    `json:"key" bson:"key"`
+	Course           string `json:"course" bson:"course"`
+	Credits          int    `json:"credits" bson:"credits"`
+	Category         string `json:"category" bson:"category"`
+	Grade            string `json:"grade" bson:"grade"`
+	Credits_received int    `json:"credits_received" bson:"credits_received"`
+	Is_repeated      bool   `json:"is_repeated" bson:"is_repeated"`
+	Is_sx            bool   `json:"is_sx" bson:"is_sx"`
 }
+
 func getCoursesY22(c *fiber.Ctx) error {
 	coll := common.GetDBCollection("courses")
 
 	category := c.Params("category")
 	if category == "" {
 		return c.Status(400).JSON(fiber.Map{
-			"error": "category is required",
+			"error":    "category is required",
 			"category": c.Params("category"),
 		})
 	}
 	// find all books
-	
+
 	books := make([]models.CoursesY22, 0)
-	cursor, err := coll.Find(c.Context(), bson.M{"Category":category})
+	cursor, err := coll.Find(c.Context(), bson.M{"Category": category})
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{
 			"error": err.Error(),
@@ -109,14 +112,12 @@ func getCoursesY22(c *fiber.Ctx) error {
 func getProfile(c *fiber.Ctx) error {
 	coll := common.GetDBCollection("books")
 
-	
 	email := c.Params("email")
 	if email == "" {
 		return c.Status(400).JSON(fiber.Map{
 			"error": "email is required",
 		})
 	}
-	
 
 	book := models.Book{}
 
@@ -130,21 +131,20 @@ func getProfile(c *fiber.Ctx) error {
 	return c.Status(200).JSON(fiber.Map{"data": book})
 }
 
-
 type candidate struct {
-	Key  int `json:"key" bson:"key"`
-	Course string `json:"course" bson:"course"`
-	Grade   string `json:"grade" bson:"grade"`
-	Credits  int `json:"credits" bson:"credits"`
+	Key              int     `json:"key" bson:"key"`
+	Course           string  `json:"course" bson:"course"`
+	Grade            string  `json:"grade" bson:"grade"`
+	Credits          int     `json:"credits" bson:"credits"`
 	Credits_received float32 `json:"credits_received" bson:"credits_received"`
-	Is_repeated   bool `json:"is_repeated" bson:"is_repeated"`
-	Is_sx  bool `json:"is_sx" bson:"is_sx"`   
+	Is_repeated      bool    `json:"is_repeated" bson:"is_repeated"`
+	Is_sx            bool    `json:"is_sx" bson:"is_sx"`
 }
 
 type createDTO struct {
-	Email  string `json:"email" bson:"email"`
-	UserId string `json:"userid" bson:"userid"`
-	Gradesdata  [][]candidate `json:"gradesData" bson:"gradesData"`
+	Email      string        `json:"email" bson:"email"`
+	UserId     string        `json:"userid" bson:"userid"`
+	Gradesdata [][]candidate `json:"gradesData" bson:"gradesData"`
 }
 
 func createProfile(c *fiber.Ctx) error {
@@ -168,13 +168,14 @@ func createProfile(c *fiber.Ctx) error {
 
 	// return the book
 	return c.Status(201).JSON(fiber.Map{
-		"result": result,
-		"result1":c.Context(),
+		"result":  result,
+		"result1": c.Context(),
 	})
 }
+
 // type coursesDTO struct{
 // 	Key  int `json:"key" bson:"key"`
-// 	Course string `json:"course" bson:"course"` 
+// 	Course string `json:"course" bson:"course"`
 // 	Calue string `json:"value" bson:"value"`
 // 	Cred int `json:"cred" bson:"cred"`
 // }
@@ -201,11 +202,10 @@ func createCourse(c *fiber.Ctx) error {
 	// return the book
 	return c.Status(201).JSON(fiber.Map{
 		"result1": c.Context(),
-		"result":result,
-		"b":b,
+		"result":  result,
+		"b":       b,
 	})
 }
-
 
 // type updateDTO struct {
 // 	Title  string `json:"title,omitempty" bson:"title,omitempty"`
@@ -215,9 +215,9 @@ func createCourse(c *fiber.Ctx) error {
 // 	Gradesdatas  [][]candidate `json:"gradesdatas" bson:"gradesdatas"`
 // }
 type updateDTO struct {
-	Email  string `json:"email" bson:"email"`
-	UserId string `json:"userid" bson:"userid"`
-	Gradesdata  [][]candidate `json:"gradesData" bson:"gradesData"`
+	Email      string        `json:"email" bson:"email"`
+	UserId     string        `json:"userid" bson:"userid"`
+	Gradesdata [][]candidate `json:"gradesData" bson:"gradesData"`
 }
 
 func updateProfile(c *fiber.Ctx) error {
@@ -249,7 +249,7 @@ func updateProfile(c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{
 			"error":   "Failed to update book",
-			"email":email,
+			"email":   email,
 			"message": err.Error(),
 		})
 	}
@@ -260,32 +260,3 @@ func updateProfile(c *fiber.Ctx) error {
 	})
 }
 
-// func deleteBook(c *fiber.Ctx) error {
-// 	// get the id
-// 	id := c.Params("id")
-// 	if id == "" {
-// 		return c.Status(400).JSON(fiber.Map{
-// 			"error": "id is required",
-// 		})
-// 	}
-// 	objectId, err := primitive.ObjectIDFromHex(id)
-// 	if err != nil {
-// 		return c.Status(400).JSON(fiber.Map{
-// 			"error": "invalid id",
-// 		})
-// 	}
-
-// 	// delete the book
-// 	coll := common.GetDBCollection("books")
-// 	result, err := coll.DeleteOne(c.Context(), bson.M{"_id": objectId})
-// 	if err != nil {
-// 		return c.Status(500).JSON(fiber.Map{
-// 			"error":   "Failed to delete book",
-// 			"message": err.Error(),
-// 		})
-// 	}
-
-// 	return c.Status(200).JSON(fiber.Map{
-// 		"result": result,
-// 	})
-// }
