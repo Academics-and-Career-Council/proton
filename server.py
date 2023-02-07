@@ -18,9 +18,11 @@ app = Flask(__name__)
 def upload_file():
     if request.method == "POST":
         f = request.files["file"]
+        print(f.filename)
         # f.save(f.filename)
         grade_structure = get_cpi_ap(f)
         response = flask.jsonify(grade_structure)
+        response.headers.add('Access-Control-Allow-Origin', '*')
         return response
 
 

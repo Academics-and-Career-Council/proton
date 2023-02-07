@@ -22,7 +22,7 @@ def return_pandas_df(tabl, name_file):
     # print("one file")
     
     tabl.to_csv(name_file)
-    pd_df = pd.read_csv(name_file)
+    pd_df = pd.read_csv(name_file, on_bad_lines='skip')
     os.remove(os.path.join(name_file))
     return pd_df
 
@@ -121,27 +121,24 @@ def get_cpi_ap(file):
                         if credits != 0:
                             flag = 1
                             grade = val
-                            match val:
-                                case 'A*':
-                                    scored = credits
-                                case 'A':
-                                    scored = credits
-                                case 'B':
-                                    scored = credits*0.8
-                                case 'C':
-                                    scored = credits*0.6
-                                case 'D':
-                                    scored = credits*0.4
-                                case 'E':
-                                    scored = credits*0.2
-                                case 'F':
-                                    scored = 0
-                                case 'S':
-                                    scored = credits
-                                case 'X':
-                                    scored = 0
-                                case default:
-                                    break
+                            if val == 'A*':
+                                scored = credits
+                            elif val == 'A':
+                                scored = credits
+                            elif val == 'B':
+                                scored = credits*0.8
+                            elif val == 'C':
+                                scored = credits*0.6
+                            elif val == 'D':
+                                scored = credits*0.4
+                            elif val == 'E':
+                                scored = credits*0.2
+                            elif val == 'F':
+                                scored = 0
+                            elif val == 'S':
+                                scored = credits
+                            elif val == 'X':
+                                scored = 0
                             total_credits = total_credits + credits
                             temp_denom = temp_denom + credits
                             temp_numer = temp_numer + scored
@@ -158,8 +155,9 @@ def get_cpi_ap(file):
         num_sems = num_sems + 1
         prev_sem_tot_credits = temp_denom
         sem_number = "sem " + str(num_sems)
+        one_sem["sem_num"] = num_sems
         one_sem["spi"] = temp_numer/temp_denom*10
-        grade_structure[sem_number] = one_sem
+        grade_structure["sems"].append(one_sem)
     status = acad_status_calc(prev_sem_tot_credits, num_sems, total_credits, prev_sem_status)
     grade_structure["status"] = status
     return grade_structure
