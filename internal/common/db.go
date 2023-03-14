@@ -29,6 +29,7 @@ func InitDB() error {
 
 	db = client.Database("go_demo")
 	fmt.Println("jhbrfhb")
+	fmt.Println(uri)
 	fmt.Println(client.Database("go_demo"))
 
 	return nil
