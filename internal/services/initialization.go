@@ -41,11 +41,8 @@ func Run() error {
 	router.AddcourseGroup(app)
 
 	// start server
-	var port string
-	if port = os.Getenv("PORT"); port == "" {
-		port = "8080"
-	}
-	app.Listen("localhost:8089")
+	port := os.Getenv("PORT");
+	err = app.Listen(":" + port)
 
-	return nil
+	return err
 }
