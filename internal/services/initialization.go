@@ -1,11 +1,10 @@
 package services
 
 import (
-	"os"
 
 	"proton/internal/common"
 	"proton/internal/router"
-
+	"github.com/spf13/viper"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -16,13 +15,13 @@ import (
 
 func Run() error {
 	// init env
-	err := common.LoadEnv()
-	if err != nil {
-		return err
-	}
+	// err := common.LoadEnv()
+	// if err != nil {
+	// 	return err
+	// }
 
 	// init db
-	err = common.InitDB()
+	err := common.InitDB()
 	if err != nil {
 		return err
 	}
@@ -42,7 +41,7 @@ func Run() error {
 	router.AddcourseGroup(app)
 
 	// start server
-	port := os.Getenv("PORT")
+	port := viper.GetString("mongo.port")
 	err = app.Listen(":" + port)
 
 	return err

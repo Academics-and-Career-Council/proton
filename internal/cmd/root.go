@@ -16,8 +16,7 @@ var (
 	userLicense string
 
 	rootCmd = &cobra.Command{
-		Use:   "xenon",
-		Short: "Xenon GraphQL Remote Authorizer, Academics and Career Council",
+		Use:   "proton",
 	}
 )
 
@@ -45,7 +44,7 @@ func initConfig() {
 		viper.SetConfigName("config")
 		viper.SetConfigType("yaml")
 	}
-	viper.AutomaticEnv()
+	// viper.AutomaticEnv()
 	if err := viper.ReadInConfig(); err == nil {
 		log.Println("Using config file:", viper.ConfigFileUsed())
 	}

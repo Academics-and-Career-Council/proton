@@ -1,14 +1,15 @@
 package common
 
 import (
-	"os"
 
+	"github.com/spf13/viper"
 	"github.com/joho/godotenv"
 )
 
 func LoadEnv() error {
 	// check if prod
-	prod := os.Getenv("PROD")
+	// prod := os.Getenv("PROD")
+	prod:= viper.GetString("PROD")
 
 	if prod != "true" {
 		err := godotenv.Load()
