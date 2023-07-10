@@ -6,7 +6,7 @@ import (
 	"proton/internal/router"
 	"github.com/spf13/viper"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
+	// "github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	// "go.mongodb.org/mongo-driver/bson"
@@ -35,7 +35,8 @@ func Run() error {
 	// add basic middleware
 	app.Use(logger.New())
 	app.Use(recover.New())
-	app.Use(cors.New())
+	// app.Use(cors.New())
+
 
 	// add routes
 	router.AddcourseGroup(app)
