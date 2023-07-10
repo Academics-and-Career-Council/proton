@@ -1,5 +1,0 @@
-mongo:
-  database: protondb
-  uri: mongodb+srv://anc:resources2021@primary.hsesw.mongodb.net/protondb?retryWrites=true&w=majority
-  port: 8084
-PORD: ""
