@@ -35,9 +35,11 @@ func Run() error {
 	// add basic middleware
 	app.Use(logger.New())
 	app.Use(recover.New())
-	app.Use(cors.New())
-
-
+	// app.Use(cors.New({AllowOrigins:"http://localhost:3000/"}))
+	app.Use(cors.New(cors.Config{
+		AllowCredentials: false,
+		AllowOrigins: "https://calculator.anciitk.in",
+	  }))
 	// add routes
 	router.AddcourseGroup(app)
 
