@@ -37,8 +37,8 @@ func Run() error {
 	app.Use(recover.New())
 	// app.Use(cors.New({AllowOrigins:"http://localhost:3000/"}))
 	app.Use(cors.New(cors.Config{
-		AllowCredentials: false,
-		AllowOrigins: "https://calculator.anciitk.in",
+		AllowCredentials: true,
+		AllowOrigins: "*",
 	  }))
 	// add routes
 	router.AddcourseGroup(app)
